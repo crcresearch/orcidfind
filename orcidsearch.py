@@ -20,7 +20,6 @@ class OrcidSearchResults:
         self.api = PublicAPI(sandbox=sandbox)
         self.s_dict = dict()
         self.orcid_id = []
-        self.url = self.api.endpoint_public
         self.total_results = 0
         self.actual_total_results = 0
 

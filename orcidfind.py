@@ -18,7 +18,7 @@ __version__ = "0.1"
 __author__ = 'cwilli34'
 
 # Set sandbox variable
-sandbox = False
+sandbox = True
 
 
 # Print program version
@@ -99,6 +99,7 @@ def search_type(a, b):
         # else:
         #     # Call basic_search() function
         #     basic_search(search_terms)
+        basic_search(search_terms)
     elif a:
         # Print selection options, and prompt for choice
         print(
