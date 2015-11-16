@@ -5,7 +5,6 @@ from orcidsearch import OrcidSearchResults
 import click
 import simplejson as json
 import io
-from configmanager import ConfigManager
 from os.path import expanduser
 import os
 
@@ -35,8 +34,7 @@ def print_version(ctx, param, value):
 @click.option('--version', is_flag=True, callback=print_version, expose_value=False, is_eager=True)
 @click.option('-a', is_flag=True, help='Review a user profile by Orcid ID (Advance Search)')
 @click.option('-b', is_flag=True, help='Basic search for user (when Orcid ID is unknown)')
-@click.option('-c', is_flag=True, help='Basic search and automated config file creation (when Orcid ID is unknown)')
-def search_type(a, b, c):
+def search_type(a, b):
     """Program main function that accepts click arguments. This function will call the basic_search() or
         advanced_search() functions
 
@@ -50,7 +48,7 @@ def search_type(a, b, c):
         When c is true, click prompts will be executed and the basic_search() function will be executed
 
     """
-    if b or c:
+    if b:
         # Prompt and get search terms
         print('* You can leave fields blank *')
         query = {
@@ -94,23 +92,26 @@ def search_type(a, b, c):
         # View string input
         print search_terms + '\n'
 
-        if c:
-            # Call basic_search_config() function
-            basic_search_config(search_terms)
-        else:
-            # Call basic_search() function
-            basic_search(search_terms)
+        # For a basic_search_config() for writing configuration files
+        # if c:
+        #     # Call basic_search_config() function
+        #     basic_search_config(search_terms)
+        # else:
+        #     # Call basic_search() function
+        #     basic_search(search_terms)
     elif a:
         # Print selection options, and prompt for choice
-        print('There are several ways of getting summarized information on an Orcid user:\n\n'
-              '1. Summary* (A complete profile of the user)\n'
-              '2. Education\n'
-              '3. Employment\n'
-              '4. Funding\n'
-              '5. Peer Review\n'
-              '6. Work\n'
-              '7. Create a configuration file\n'
-              '8. Read a configuration file\n')
+        print(
+            'There are several ways of getting summarized information on an Orcid user:\n\n'
+            '1. Summary* (A complete profile of the user)\n'
+            '2. Education\n'
+            '3. Employment\n'
+            '4. Funding\n'
+            '5. Peer Review\n'
+            '6. Work\n'
+            # '7. Create a configuration file\n'
+            # '8. Read a configuration file\n'
+        )
         print('*Summary data is in JSON format. Sometimes a large amount of data can be passed from the '
               'Orcid database. Because of this all output will be written to an external text file.  The text '
               'file will be saved in the program\'s directory.\n')
@@ -132,10 +133,10 @@ def search_type(a, b, c):
             record_type = 'peer-review'
         elif selection == '6':
             record_type = 'work'
-        elif selection == '7':
-            record_type = 'write-rdf'
-        elif selection == '8':
-            record_type = 'read-rdf'
+        # elif selection == '7':
+        #     record_type = 'write-rdf'
+        # elif selection == '8':
+        #     record_type = 'read-rdf'
 
         query = click.prompt('Please enter the Orcid ID')
         print('')
@@ -155,13 +156,11 @@ def basic_search(query):
     -------
     :returns: no return.
     """
-
     # Initialize and populate all variables and dictionaries
     search_obj = OrcidSearchResults(sandbox)
     search_obj.basic_search(query)
     actual_total = search_obj.actual_total_results
     total_results = search_obj.total_results
-    # orcid_id = search_obj.orcid_id
 
     # Print results
     search_obj.print_basic()
@@ -183,80 +182,6 @@ def basic_search(query):
             exit(1)
         else:
             print('You did not pick an appropriate answer.')
-
-
-def basic_search_config(query):
-    """ Function for initializing a search for an orcid id, and then creates a RDF
-        configuration file automatically.
-
-    Parameters
-    ----------
-    :param query: string
-        Query built from user input.
-
-    Returns
-    -------
-    :returns: no return.
-    """
-
-    # Initialize and populate all variables and dictionaries
-    search_obj = OrcidSearchResults(sandbox)
-    search_obj.basic_search(query)
-    actual_total = search_obj.actual_total_results
-    total_results = search_obj.total_results
-    # orcid_id = search_obj.orcid_id
-
-    # Print results
-    search_obj.print_basic_alt()
-
-    # Print total results if actual results are above 100
-    if total_results < actual_total:
-        print 'Actual Total Results: {}'.format(actual_total)
-        print('')
-
-    # Get list of Orcid ID's from results
-    id_list = search_obj.orcid_id
-
-    # Write config if only one result was found
-    if total_results == 1:
-        orcid_id = id_list[0]
-        config = ConfigManager()
-        config.get_config(_id=orcid_id, sandbox=sandbox)
-        config.write_config()
-
-    # If no results are found
-    elif total_results == 0:
-        print("No results where found. Please try again.\n")
-        search_type(args=['-c'])
-
-    # Allow user to select Orcid profile if multiple results are found
-    else:
-        id_dict = dict()
-        # Get list of Orcid ID's and correspond count with ID
-        for i, d in enumerate(id_list):
-            id_dict[i + 1] = d
-
-        selected = None
-        while not selected:
-            try:
-                selected = click.prompt('Select the result # of the record (Type "N" for another search, '
-                                        '"Exit" to abort)')
-                print("")
-                orcid_id = id_dict[int(selected)]
-                config = ConfigManager()
-                config.get_config(_id=orcid_id, sandbox=sandbox)
-                config.write_config()
-            except KeyError:
-                print('That is not a valid selection.  Please try again.\n')
-                selected = None
-            except ValueError:
-                if selected in ('N', 'n'):
-                    search_type(args=['-c'])
-                elif selected in ('exit', 'Exit', 'EXIT'):
-                    exit()
-                else:
-                    print('That is not a valid selection.  Please try again.\n')
-                    selected = None
 
 
 def advanced_search(query, record_type):
@@ -282,15 +207,15 @@ def advanced_search(query, record_type):
     search_obj = OrcidSearchResults(sandbox)
 
     # Will be 'not None' only if record type is other than 'activities'
-    if record_type == 'write-rdf':
-        config = ConfigManager()
-        config.get_config(_id=query, sandbox=sandbox)
-        config.write_config()
-    elif record_type == 'read-rdf':
-        config = ConfigManager()
-        rdf_graph = config.read_config()
-        print rdf_graph
-    elif record_type is not None:
+    # if record_type == 'write-rdf':
+    #     config = ConfigManager()
+    #     config.get_config(_id=query, sandbox=sandbox)
+    #     config.write_config()
+    # elif record_type == 'read-rdf':
+    #     config = ConfigManager()
+    #     rdf_graph = config.read_config()
+    #     print rdf_graph
+    if record_type is not None:
         put_code = click.prompt('Please enter the put-code (must match record type)')
         results = search_obj.advanced_search(query, record_type, put_code)
         print('')
