@@ -1,20 +1,25 @@
 """CLI program to search for a user's Orcid ID, utilizes the python-orcid library
     and Orcid API.
 """
-from orcidsearch import OrcidSearchResults
+import io
+import os
+from os.path import expanduser
+
 import click
 import simplejson as json
-import io
-from os.path import expanduser
-import os
+
+from orcidsearch import OrcidSearchResults
 
 # For testing
-from pprintpp import pprint as pp
 
 SEARCH_VERSION = "/v1.2"
 API_VERSION = "/v2.0_rc1"
+base_dir = os.path.dirname(__file__)
 
-__version__ = "0.1"
+version = {}
+with open(os.path.join(base_dir, '__version__.py')) as f:
+    exec(f.read(), version)
+__version__ = version['VERSION']
 __author__ = 'cwilli34'
 
 # Set sandbox variable
@@ -44,11 +49,8 @@ def search_type(a, b):
         When a is true, click prompts will be executed and the advanced_search() function will be executed
     :param b: flag
         When b is true, click prompts will be executed and the basic_search() function will be executed.
-    :param c: flag
-        When c is true, click prompts will be executed and the basic_search() function will be executed
-
     """
-    if b:
+    if b or (not a and not b):
         # Prompt and get search terms
         print('* You can leave fields blank *')
         query = {
