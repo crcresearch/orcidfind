@@ -1,12 +1,10 @@
 # orcidfind
-Simple python script using the [Orcid Python Library](https://github.com/ORCID/python-orcid).  
-
-This script adds command line interactivity that allows a user to search [Orcid](http://www.orcid.org) using the public API.  There are two search categories: basic search and advanced search.  The basic search allows a user to search Orcid for an Orcid user when the Orcid ID is not known.  The advanced search allows for more detailedinformation to be accessed once the Orcid ID is known.  
+Simple python script using the [Orcid Python Library](https://github.com/ORCID/python-orcid) that adds command line interactivity for searching the Orcid [Orcid](http://www.orcid.org) user database using their public API.  There are two search categories: basic search and advanced search.  The basic search allows a user to search Orcid for an Orcid user when the Orcid ID is not known.  The advanced search allows for more detailed information to be accessed once the Orcid ID is known.  
 
 The Orcid [public API](http://members.orcid.org/api) is used with this program.  There is no support for the member API.
 
 ## Version
-Version == 0.1a3
+Version == 0.1a4
 
 ## Download & Install
 You can use a pip install:
@@ -33,38 +31,18 @@ As of right now, Python 2.7.x and Python 3.5 are supported.  This has not been t
 ## Usage
 `$ orcidfind` or `$ orcidfind -b`
 
-    ```
-    $ orcidfind
-    * You can leave fields blank *
-    Please enter a first name: John   
-    Please enter a last name: Doe
-    Please enter an email: 
-    Please enter some keywords (like country, department or institution): 
-    
-    given-names:John AND family-name:Doe
-    
-    Search Results: (100 Total)
-    
-    You have a lot of results!!
-    Please modify or add more search terms to narrow your results.
-    
-    Result:       1                    
-    Orcid ID:     0000-0001-7330-0571                
-    Last Name:    Doe                                
-    First Name:   John                               
-    
-    Result:       2                    
-    Orcid ID:     0000-0001-8058-4912                
-    Last Name:    Doe                                
-    First Name:   John                               
-    
-    Result:       3                    
-    Orcid ID:     0000-0003-2414-9902                
-    Last Name:    Doe                                
-    First Name:   John
-    ```  
-.....
-
+![Image of Basic Search Screenshot]
 (https://raw.githubusercontent.com/crcresearch/orcidfind/master/images/Screenshot%20from%202015-11-19%2012-30-44.png)
 
 `$ orcidfind -a`
+
+![Image of Advanced Search Screenshot]
+(https://github.com/crcresearch/orcidfind/blob/master/images/Screenshot%20from%202015-11-19%2012-37-31.png?raw=true)
+
+When you select "Summary" under the advance options, right now it automatically saves the orcid profile data as a JSON formatted file under the following path: 
+
+`/home/[username]/.sc/[orcid-id-of-user].json`
+
+This is done because some profiles can be thousands upon thousands of lines of code, which is not ideal for the command line.
+
+For the other options, put-codes are required along with the Orcid-ID of the user you want to review.  You can get the put-codes from the JSON file created in option 1.  The other options will give you a little more detailed information.
