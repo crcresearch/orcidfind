@@ -65,4 +65,6 @@ As of right now, Python 2.7.x and Python 3.5 are supported.  This has not been t
     ```  
 .....
 
+(https://raw.githubusercontent.com/crcresearch/orcidfind/master/images/Screenshot%20from%202015-11-19%2012-30-44.png)
+
 `$ orcidfind -a`
