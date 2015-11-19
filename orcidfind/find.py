@@ -4,12 +4,9 @@
 import io
 import os
 from os.path import expanduser
-
 import click
 import simplejson as json
-
-from orcidsearch import OrcidSearchResults
-
+from orcidsearch.search import OrcidSearchResults
 # For testing
 
 SEARCH_VERSION = "/v1.2"
@@ -92,7 +89,7 @@ def search_type(a, b):
         search_terms = first_name + last_name + email + keywords
 
         # View string input
-        print search_terms + '\n'
+        print(search_terms + '\n')
 
         # For a basic_search_config() for writing configuration files
         # if c:
@@ -170,7 +167,7 @@ def basic_search(query):
 
     # Print total results if actual results are above 100
     if total_results < actual_total:
-        print 'Actual Total Results: {}'.format(actual_total)
+        print('Actual Total Results: {}'.format(actual_total))
         print('')
 
     # Ask user if they would like to search again.
@@ -189,7 +186,7 @@ def basic_search(query):
 
 def advanced_search(query, record_type):
     """ Function for initializing an advanced search for an orcid id.  Utilizes OrcidSearchResults() class
-        from orcidsearch.py
+        from search.py
 
     Parameters
     ----------
@@ -234,7 +231,10 @@ def advanced_search(query, record_type):
                         as json_file:
                     data = json.dumps(results, json_file, sort_keys=True, indent=4, ensure_ascii=False)
                     # unicode(data) auto-decodes data to unicode if str
-                    json_file.write(unicode(data))
+                    try:
+                        json_file.write(str(data))
+                    except (NameError, TypeError):
+                        json_file.write(unicode(data))
                 break
             elif send_to_file in ('n', 'N', 'no', 'NO', 'No'):
                 break
@@ -256,7 +256,10 @@ def advanced_search(query, record_type):
         with io.open(config_path, 'w', encoding='utf8') as json_file:
             data = json.dumps(results, json_file, sort_keys=True, indent=4, ensure_ascii=False)
             # unicode(data) auto-decodes data to unicode if str
-            json_file.write(unicode(data))
+            try:
+                json_file.write(str(data))
+            except (NameError, TypeError):
+                json_file.write(unicode(data))
 
     # Ask user if they would like to go back to the advanced search selection menu
     while True:

@@ -1,7 +1,6 @@
 from colorama import Fore, Style
 from orcid import PublicAPI
 
-
 __author__ = 'cwilli34'
 
 
@@ -188,43 +187,43 @@ class OrcidSearchResults:
             "Please modify or add more search terms to narrow your results.\n" + \
             Style.RESET_ALL
 
-        print result_text + '\n'
+        print(result_text + '\n')
         if self.total_results > 30:
-            print result_warning_text
+            print(result_warning_text)
 
         for i, p in enumerate(self.s_dict):
             email = self.s_dict[p].get('email')
             l_name = self.s_dict[p].get('l_name')
             f_name = self.s_dict[p].get('f_name')
 
-            id_text = Fore.BLUE + '{0:14}{1:40}'.format('Orcid ID:', Fore.RESET + p.encode('utf8'))
-            l_name_text = Fore.BLUE + '{0:14}{1:40}'.format('Last Name:', Fore.RESET + l_name.encode('utf8'))
-            f_name_text = Fore.BLUE + '{0:14}{1:40}'.format('First Name:',  Fore.RESET + f_name.encode('utf8'))
+            id_text = Fore.BLUE + '{0:14}{1:40}'.format('Orcid ID:', Fore.RESET + p)
+            l_name_text = Fore.BLUE + '{0:14}{1:40}'.format('Last Name:', Fore.RESET + l_name)
+            f_name_text = Fore.BLUE + '{0:14}{1:40}'.format('First Name:',  Fore.RESET + f_name)
             email_text = Fore.BLUE + 'Email:' + Fore.RESET
             count = \
-                Fore.BLUE + \
+                Fore.MAGENTA + \
                 Style.BRIGHT + \
                 '{0:14}{1:40}'.format(
                     'Result:',
                     Fore.RESET +
                     Fore.YELLOW +
-                    str(i + 1).encode('utf8') +
+                    str(i + 1) +
                     Fore.RESET+ \
                     Style.RESET_ALL
                 )
 
-            print count
-            print id_text
-            print l_name_text
-            print f_name_text
+            print(count)
+            print(id_text)
+            print(l_name_text)
+            print(f_name_text)
 
             if email is not None:
                 for e in email:
                     email_address_text = email[e]
                     if e == 1:
-                        print '{0:24}'.format(email_text) + '{0:40}'.format(email_address_text.encode('utf8'))
+                        print('{0:24}'.format(email_text) + '{0:40}'.format(email_address_text))
                     else:
-                        print '{0:14}'.format("") + '{0:40}'.format(email_address_text.encode('utf8'))
+                        print('{0:14}'.format("") + '{0:40}'.format(email_address_text))
 
             print("" + Style.RESET_ALL)
 
@@ -256,20 +255,20 @@ class OrcidSearchResults:
             "Please modify or add more search terms to narrow your results.\n" + \
             Style.RESET_ALL
 
-        print result_text + '\n'
+        print(result_text + '\n')
         if self.total_results > 30:
-            print result_warning_text
+            print(result_warning_text)
 
         for i, p in enumerate(self.s_dict):
             email = self.s_dict[p].get('email')
             l_name = self.s_dict[p].get('l_name')
             f_name = self.s_dict[p].get('f_name')
 
-            id_text = p.encode('utf8')
-            l_name_text = l_name.encode('utf8')
-            f_name_text = f_name.encode('utf8')
+            id_text = p
+            l_name_text = l_name
+            f_name_text = f_name
             count = \
-                Fore.BLUE + \
+                Fore.MAGENTA + \
                 Style.BRIGHT + \
                 'Result: ' + \
                 Fore.RESET + \

@@ -23,12 +23,12 @@ __author__ = 'cwilli34'
 setup(
     name='orcidfind',
     version=__version__,
-    packages=['orcidfind'],
+    packages=['orcidfind', 'orcidsearch'],
     package_data={
-        'orcidfind':['Dockerfile', '__version__.py']
+        'orcidfind':['Dockerfile', '__version__.py','__init__.py']
     },
     entry_points={
-        'console_scripts':['orcidfind = orcidfind:search_type']
+        'console_scripts':['orcidfind = orcidfind.find:search_type']
     },
     url='https://crc.nd.edu',
     download_url='https://github.com/crcresearch/orcidfind/tarball/0.1',
