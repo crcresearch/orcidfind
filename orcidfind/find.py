@@ -19,10 +19,6 @@ with open(os.path.join(base_dir, '__version__.py')) as f:
 __version__ = version['VERSION']
 __author__ = 'cwilli34'
 
-# Set sandbox variable
-sandbox = False
-
-
 # Print program version
 def print_version(ctx, param, value):
     if not value or ctx.resilient_parsing:
@@ -36,7 +32,8 @@ def print_version(ctx, param, value):
 @click.option('--version', is_flag=True, callback=print_version, expose_value=False, is_eager=True)
 @click.option('-a', is_flag=True, help='Review a user profile by Orcid ID (Advance Search)')
 @click.option('-b', is_flag=True, help='Basic search for user (when Orcid ID is unknown)')
-def search_type(a, b):
+@click.option('sandbox', is_flag=True, help='Use the Orcid Public API Sandbox')
+def search_type(a, b, sandbox=False):
     """Program main function that accepts click arguments. This function will call the basic_search() or
         advanced_search() functions
 
