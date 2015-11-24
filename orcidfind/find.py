@@ -20,7 +20,7 @@ __version__ = version['VERSION']
 __author__ = 'cwilli34'
 
 # Set sandbox variable
-sandbox = True
+sandbox = False
 
 
 # Print program version
