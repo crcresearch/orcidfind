@@ -44,5 +44,16 @@ setup(
         'orcid==0.5.1',
         'pprintpp==0.2.3',
         'requests==2.7.0'
+    ],
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: Apache Software License',
+        'Natural Language :: English',
+        'Programming Language :: Python',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Utilities',
     ]
 )
