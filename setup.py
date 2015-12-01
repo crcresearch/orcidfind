@@ -31,12 +31,12 @@ setup(
         'console_scripts':['orcidfind = orcidfind.find:search_type']
     },
     url='https://crc.nd.edu',
-    download_url='https://github.com/crcresearch/orcidfind/tarball/0.1',
+    download_url='https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.5',
     platforms='Linux',
     license='ALv2',
     author='cwilli34',
     author_email='cwilli34@nd.edu',
-    description='Python script to allow and interactive TTY for searching the Orcid API',
+    description='Python script to allow an interactive TTY for searching the Orcid API',
     keywords=['orcid', 'python-orcid', 'pubic', 'API'],
     install_requires=[
         'click==4.1',
