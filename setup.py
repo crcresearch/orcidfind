@@ -31,7 +31,7 @@ setup(
         'console_scripts':['orcidfind = orcidfind.find:search_type']
     },
     url='https://crc.nd.edu',
-    download_url='https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.5',
+    download_url='https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.6',
     platforms='Linux',
     license='ALv2',
     author='cwilli34',

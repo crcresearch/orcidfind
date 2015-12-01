@@ -4,7 +4,7 @@ Simple python script using the [Orcid Python Library](https://github.com/ORCID/p
 The Orcid [public API](http://members.orcid.org/api) is used with this program.  There is no support for the member API.
 
 ## Version
-Version == 0.1-alpha.5
+Version == 0.1-alpha.6
 
 ## Download & Install
 You can use a pip install:
@@ -13,7 +13,7 @@ You can use a pip install:
 
 or download:
 
-[https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.5](https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.5)
+[https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.6](https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.6)
 
 orcidfind/find.py is a `__main__` python script and relies on orcidsearch/search.py as a module.  This means that orcidsearch/search.py must be installed under site-packages for your particular Python version, or added to the PYTHONPATH.
 
