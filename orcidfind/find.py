@@ -32,7 +32,7 @@ def print_version(ctx, param, value):
 @click.option('--version', is_flag=True, callback=print_version, expose_value=False, is_eager=True)
 @click.option('-a', is_flag=True, help='Review a user profile by Orcid ID (Advance Search)')
 @click.option('-b', is_flag=True, help='Basic search for user (when Orcid ID is unknown)')
-@click.option('sandbox', is_flag=True, help='Use the Orcid Public API Sandbox')
+@click.option('-s', '--sandbox', is_flag=True, help='Use the Orcid Public API Sandbox')
 def search_type(a, b, sandbox=False):
     """Program main function that accepts click arguments. This function will call the basic_search() or
         advanced_search() functions
@@ -95,7 +95,7 @@ def search_type(a, b, sandbox=False):
         # else:
         #     # Call basic_search() function
         #     basic_search(search_terms)
-        basic_search(search_terms)
+        basic_search(search_terms, sandbox)
     elif a:
         # Print selection options, and prompt for choice
         print(
@@ -138,10 +138,10 @@ def search_type(a, b, sandbox=False):
         query = click.prompt('Please enter the Orcid ID')
         print('')
 
-        advanced_search(query, record_type)
+        advanced_search(query, record_type, sandbox)
 
 
-def basic_search(query):
+def basic_search(query, sandbox):
     """ Function for initializing a search for an orcid id.
 
     Parameters
@@ -173,7 +173,10 @@ def basic_search(query):
         print('')
 
         if new_instance in ('y', 'Y', 'yes', 'YES', 'Yes'):
-            search_type(args=['-b'])
+            if sandbox:
+                search_type(args=['-b', '-s'])
+            else:
+                search_type(args=['-b'])
             break
         elif new_instance in ('n', 'N', 'no', 'NO', 'No'):
             exit(1)
@@ -181,7 +184,7 @@ def basic_search(query):
             print('You did not pick an appropriate answer.')
 
 
-def advanced_search(query, record_type):
+def advanced_search(query, record_type, sandbox):
     """ Function for initializing an advanced search for an orcid id.  Utilizes OrcidSearchResults() class
         from search.py
 
@@ -264,7 +267,10 @@ def advanced_search(query, record_type):
         print('')
 
         if new_instance in ('y', 'Y', 'yes', 'YES', 'Yes'):
-            search_type(args=['-a'])
+            if sandbox:
+                search_type(args=['-a', '-s'])
+            else:
+                search_type(args=['-a'])
             break
         elif new_instance in ('exit', 'EXIT', 'Exit'):
             exit(1)

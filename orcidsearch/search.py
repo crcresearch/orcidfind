@@ -8,7 +8,7 @@ class OrcidSearchResults:
 
     """Using the Orcid Public API."""
 
-    def __init__(self, sandbox=True):
+    def __init__(self, sandbox=False):
         """Initialize public API for class.
 
         Parameters
