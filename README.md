@@ -4,7 +4,7 @@ Simple python script using the [Orcid Python Library](https://github.com/ORCID/p
 The Orcid [public API](http://members.orcid.org/api) is used with this program.  There is no support for the member API.
 
 ## Version
-Version == 0.1a4
+Version == 0.1-alpha.5
 
 ## Download & Install
 You can use a pip install:
@@ -13,7 +13,7 @@ You can use a pip install:
 
 or download:
 
-[https://github.com/crcresearch/orcidfind/tarball/0.1](https://github.com/crcresearch/orcidfind/tarball/0.1)
+[https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.5](https://github.com/crcresearch/orcidfind/tarball/0.1-alpha.5)
 
 orcidfind/find.py is a `__main__` python script and relies on orcidsearch/search.py as a module.  This means that orcidsearch/search.py must be installed under site-packages for your particular Python version, or added to the PYTHONPATH.
 
@@ -38,6 +38,10 @@ As of right now, Python 2.7.x and Python 3.5 are supported.  This has not been t
 
 ![Image of Advanced Search Screenshot]
 (https://github.com/crcresearch/orcidfind/blob/master/images/Screenshot%20from%202015-11-19%2012-37-31.png?raw=true)
+
+`$ orcidfind -s` or `$ orcidfind --sandbox`
+
+Any instance of the `--sandbox` option will allow the use of the Orcid Sandbox instead of using the actual Orcid Public API.  This is for testing OrcidFind, or testing any additions to OrcidFind that you may have developed.
 
 When you select "Summary" under the advance options, right now it automatically saves the orcid profile data as a JSON formatted file under the following path: 
 

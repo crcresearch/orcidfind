@@ -44,9 +44,11 @@ def search_type(a, b, sandbox=False):
     :param b: flag
         When b is true, click prompts will be executed and the basic_search() function will be executed.
     """
+    if sandbox:
+        print('** YOU ARE USING THE ORCID SANDBOX **\n')
     if b or (not a and not b):
         # Prompt and get search terms
-        print('* You can leave fields blank *')
+        print('** You can leave fields blank **')
         query = {
             'first_name': click.prompt('Please enter a first name', default='', show_default=False),
             'last_name': click.prompt('Please enter a last name', default='', show_default=False),
