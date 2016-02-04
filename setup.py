@@ -39,11 +39,11 @@ setup(
     description='Python script to allow an interactive TTY for searching the Orcid API',
     keywords=['orcid', 'python-orcid', 'pubic', 'API'],
     install_requires=[
-        'click==4.1',
-        'colorama==0.3.3',
-        'orcid==0.5.1',
-        'pprintpp==0.2.3',
-        'requests==2.7.0'
+        'click>=4.1',
+        'colorama>=0.3.3',
+        'orcid>=0.5.1',
+        'pprintpp>=0.2.3',
+        'requests>=2.7.0'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
